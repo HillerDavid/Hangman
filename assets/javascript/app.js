@@ -1,57 +1,93 @@
-console.log('App starting')
-
-// Variable to determine whether game has begun
-
-var gameStarted = false;
-
 // - Create a list of words
-
 var wordArray = ["Nicole", "Alyssa", "Mike", "David", "Jean", "Michael", "MiChel", "Josue"]
-var alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+// - Remaining guesses from user until game over
+var guessCounter = 0
+
+// - All letters already guessed by user
 var lettersGuessed = []
+
+// - Appropriate choices for user to make
+var alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+// - Store word chosen by the generator
 var chosenWord = ""
 
-// # Start the application!
+// - Display to user
+var displayWord = document.getElementById("display-words")
+var letters = document.getElementById("letters")
+var showGuessCounter = document.getElementById("guess-counter")
+
+// - Array for answer blanks
+var answer = []
+
+// - Game Status
+var gameStarted = false
+
+// # Start/Play the game!
 
 document.onkeyup = function (event) {
     var userGuess = event.key
 
-    //New Game
+    // - New Game
     if (gameStarted === false) {
         gameStarted = true
-        chosenWord = wordGenerator().toLowerCase()
-        var blankWord = chosenWord.replace(/[a-z]/g, "_ ")
-        console.log("Chosen Word: " + chosenWord + "blankWord: " + blankWord)
-        document.getElementById("display-words").innerHTML = blankWord
+        chosenWord = wordGenerator()
+        for (i = 0; i < chosenWord.length; i++) {
+            answer[i] = "_"
+        }
+        guessCounter = 10
+        showGuessCounter.innerHTML = guessCounter
+        
+        console.log("Chosen Word: " + chosenWord)
+        displayWord.innerHTML = answer.join(" ")
     } else {
+        // - Game is active
+        if (gameStarted === true) {
 
-        //Determine if userGuess was previously made
-        if (lettersGuessed.includes(userGuess)) {
-            alert("You already guessed " + userGuess + "!")
-        } else {
-            lettersGuessed.push(userGuess)
-            console.log("letter pushed")
-        }
+            // - Determine if letter was already guessed
+            if (alphabet.includes(userGuess)) {
 
-        //Determine whether userGuess is correct
-        for (var i = 0; i < chosenWord.length; i++) {
-            if (chosenWord[i] === userGuess) {
-                console.log("correct " + tempString)
-            } else {
-                console.log("incorrect" + tempString)
+                // - Warns player they already tried that guess or pushes letter
+                if (lettersGuessed.includes(userGuess)) {
+                    alert("You already guessed " + userGuess + "! Try a different one!")
+                } else {
+                    lettersGuessed.push(userGuess)
+                    letters.innerHTML = lettersGuessed
+                    guessCounter--
+                }
+
+                for (i = 0; i < chosenWord.length; i++) {
+                    if (chosenWord[i] === userGuess) {
+                        answer[i] = userGuess
+                        displayWord.innerHTML = answer.join(" ")
+                    }
+                }
+
             }
-        }
 
+            if (guessCounter === 0) {
+                alert("GAME OVER! YOU RAN OUT OF GUESSES!")
+                alert("Press any key to reset game!")
+                reset()
+            } else if (!answer.includes("_")) {
+                alert("CONGRATULATIONS! YOU WIN!")
+                alert("Press any key to reset game!")
+                reset()
+            }
+
+            showGuessCounter.innerHTML = guessCounter
+        }
     }
 }
 
-// - Select one randomly (Random Word Generator)
+// - Function randomly picks word from wordArray
 var wordGenerator = function () {
-    var wordIndex = Math.floor(Math.random() * wordArray.length)
-    return wordArray[wordIndex]
+    word = wordArray[Math.floor(Math.random() * wordArray.length)].toLowerCase()
+    return word
 }
 
-
-// - Display the word
-
-// 1. Press any key to play again
+var reset = function () {
+    gameStarted = false
+    lettersGuessed = []
+}
