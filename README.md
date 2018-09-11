@@ -1,4 +1,4 @@
-#**Hangman Game**
+# **Hangman Game**
 ------------------
-##A word guessing game!
+## **A word guessing game!**
 

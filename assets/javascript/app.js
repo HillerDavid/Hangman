@@ -20,7 +20,7 @@ var chosenWord = ""
 // - Array for answer blanks
 var answer = []
 
-// - Game Status
+// - Game Started Status
 var gameStarted = false
 
 // - Display to user
@@ -44,44 +44,44 @@ document.onkeyup = function (event) {
 
         if (gameStarted === true) {
 
-            // - Determine if letter was already guessed
+            // - Determine if key pressed is a letter of the alphabet
             if (alphabet.includes(userGuess)) {
 
                 // - Tells player the letter choice was already used
                 if (lettersGuessed.includes(userGuess) || lettersGuessed.includes(userGuess.toUpperCase())) {
                     alert("You already guessed " + userGuess + "! Try a different one!")
                 }
-                // - 
+                // - Add letter guessed by user to list of guessed letters and removes one remaining guess attempts
                 else {
                     lettersGuessed.push(userGuess.toUpperCase())
                     showLetters.innerHTML = lettersGuessed
                     guessCounter--
+                    showGuessCounter.innerHTML = guessCounter
                 }
 
+                // - Checks if letter matches letters in word blanks and replaces it where it matches.
                 for (i = 0; i < chosenWord.length; i++) {
                     if (chosenWord[i] === userGuess) {
                         answer[i] = userGuess
                         showWord.innerHTML = answer.join(" ")
                     }
                 }
-
             }
 
-            // # Lose game if out of guesses
+            // - Lose game if out of guesses
             if (guessCounter === 0) {
                 alert("GAME OVER! YOU RAN OUT OF GUESSES!")
                 losses++
                 endGame()
+                showLosses.innerHTML = losses
             }
-            // # Win game if all letters guessed correctly
+            // - Win game if all letters guessed correctly
             else if (!answer.includes("_")) {
                 alert("CONGRATULATIONS! YOU WIN!")
                 wins++
                 endGame()
+                showWins.innerHTML = wins
             }
-            showLosses.innerHTML = losses
-            showWins.innerHTML = wins
-            showGuessCounter.innerHTML = guessCounter
         }
     }
 }
