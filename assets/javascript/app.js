@@ -4,6 +4,10 @@ var wordArray = ["Nicole", "Alyssa", "Mike", "David", "Jean", "Michael", "MiChel
 // - Remaining guesses from user until game over
 var guessCounter = 0
 
+// - Number of Wins and Losses
+var wins = 0
+var losses = 0
+
 // - All letters already guessed by user
 var lettersGuessed = []
 
@@ -13,69 +17,72 @@ var alphabet = "abcdefghijklmnopqrstuvwxyz"
 // - Store word chosen by the generator
 var chosenWord = ""
 
-// - Display to user
-var displayWord = document.getElementById("display-words")
-var letters = document.getElementById("letters")
-var showGuessCounter = document.getElementById("guess-counter")
-
 // - Array for answer blanks
 var answer = []
 
 // - Game Status
 var gameStarted = false
 
-// # Start/Play the game!
+// - Display to user
+var showWord = document.getElementById("display-words")
+var showLetters = document.getElementById("letters")
+var showGuessCounter = document.getElementById("guess-counter")
+var showWins = document.getElementById("wins")
+var showLosses = document.getElementById("losses")
+var startKey = document.getElementById("start-key")
 
+// # Start/Play the game!
 document.onkeyup = function (event) {
-    var userGuess = event.key
+    var userGuess = event.key.toLowerCase()
 
     // - New Game
     if (gameStarted === false) {
-        gameStarted = true
-        chosenWord = wordGenerator()
-        for (i = 0; i < chosenWord.length; i++) {
-            answer[i] = "_"
-        }
-        guessCounter = 10
-        showGuessCounter.innerHTML = guessCounter
-        
-        console.log("Chosen Word: " + chosenWord)
-        displayWord.innerHTML = answer.join(" ")
-    } else {
-        // - Game is active
+        start()
+    }
+    // - Game is active
+    else {
+
         if (gameStarted === true) {
 
             // - Determine if letter was already guessed
             if (alphabet.includes(userGuess)) {
 
-                // - Warns player they already tried that guess or pushes letter
+                // - Tells player the letter choice was already used
                 if (lettersGuessed.includes(userGuess)) {
                     alert("You already guessed " + userGuess + "! Try a different one!")
-                } else {
+                }
+                // - 
+                else {
                     lettersGuessed.push(userGuess)
-                    letters.innerHTML = lettersGuessed
+                    showLetters.innerHTML = lettersGuessed
                     guessCounter--
                 }
 
                 for (i = 0; i < chosenWord.length; i++) {
                     if (chosenWord[i] === userGuess) {
                         answer[i] = userGuess
-                        displayWord.innerHTML = answer.join(" ")
+                        showWord.innerHTML = answer.join(" ")
                     }
                 }
 
             }
 
+            // # Lose game if out of guesses
             if (guessCounter === 0) {
                 alert("GAME OVER! YOU RAN OUT OF GUESSES!")
-                alert("Press any key to reset game!")
-                reset()
-            } else if (!answer.includes("_")) {
-                alert("CONGRATULATIONS! YOU WIN!")
-                alert("Press any key to reset game!")
-                reset()
+                losses++
+                startKey.innerHTML = "<style>visibility: visible</style> Press any key to play again!"
+                gameStarted = false
             }
-
+            // # Win game if all letters guessed correctly
+            else if (!answer.includes("_")) {
+                alert("CONGRATULATIONS! YOU WIN!")
+                wins++
+                startKey.innerHTML = "<style>visibility: visible</style> Press any key to play again!"
+                gameStarted = false
+            }
+            showLosses.innerHTML = losses
+            showWins.innerHTML = wins
             showGuessCounter.innerHTML = guessCounter
         }
     }
@@ -87,7 +94,17 @@ var wordGenerator = function () {
     return word
 }
 
-var reset = function () {
-    gameStarted = false
+var start = function () {
+    gameStarted = true
+    answer = []
     lettersGuessed = []
+    showLetters.innerHTML = lettersGuessed
+    chosenWord = wordGenerator()
+    for (i = 0; i < chosenWord.length; i++) {
+        answer[i] = "_"
+    }
+    showWord.innerHTML = answer.join(" ")
+    guessCounter = 10
+    showGuessCounter.innerHTML = guessCounter
+    startKey.innerHTML = "<style>visiblity: hidden</style>"
 }

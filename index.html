@@ -22,35 +22,31 @@
 1. Press any key to play again -->
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">Hangman Game!</h1>
-            <p class="lead">Rules: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem enim dicta dolore
-                voluptatum omnis officia ipsum itaque vel ab ea! Harum quibusdam consectetur animi sit non eius perspiciatis
-                nemo nobis?</p>
+            <h1 class="display-4" id="game-title">Hangman Game!</h1>
+            <p class="lead" id="rules">Rules: </p>
             <hr class="my-4">
-            <p>Rules 2: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id natus ratione saepe facere necessitatibus
-                praesentium, aperiam nobis ut eligendi, placeat alias maiores odio cumque quia suscipit possimus odit! Non,
-                consequatur.
-            </p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Link to Rules</a>
-            </p>
-            <h2 class="display-3 start-text">Press any key to start!</h2>
+            <h2 class="display-3 start-text"><span id="start-key">Press any key to start!</span></h2>
+            <div class="display-3">
+                Guess the letters: <span id="display-words"></span>
+            </div>
+            <div>
+                Remaining Guesses: <span id="guess-counter">10</span>
+            </div>
+
+            <div>
+                Letters Guessed: <span id="letters"></span>
+            </div>
+            <div>
+                Wins: <span id="wins">0</span>
+            </div>
+            <div>
+                Losses: <span id="losses">0</span>
+            </div>
         </div>
     </div>
 
-    <div id="guess-counter"> 
 
-    </div>
 
-    <div>
-        Letters Guessed:<span id = "letters"></span>
-    </div>
-
-    <div id="display-words">
-        
-    </div>
-
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
