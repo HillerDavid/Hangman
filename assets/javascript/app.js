@@ -1,5 +1,5 @@
 // - Create a list of words
-var wordArray = ["Nicole", "Alyssa", "Mike", "David", "Jean", "Michael", "MiChel", "Josue"]
+var wordArray = ["Pluto", "Mickey", "Minnie", "Goofy", "Donald", "Daisy"]
 
 // - Remaining guesses from user until game over
 var guessCounter = 0
@@ -48,12 +48,12 @@ document.onkeyup = function (event) {
             if (alphabet.includes(userGuess)) {
 
                 // - Tells player the letter choice was already used
-                if (lettersGuessed.includes(userGuess)) {
+                if (lettersGuessed.includes(userGuess) || lettersGuessed.includes(userGuess.toUpperCase())) {
                     alert("You already guessed " + userGuess + "! Try a different one!")
                 }
                 // - 
                 else {
-                    lettersGuessed.push(userGuess)
+                    lettersGuessed.push(userGuess.toUpperCase())
                     showLetters.innerHTML = lettersGuessed
                     guessCounter--
                 }
