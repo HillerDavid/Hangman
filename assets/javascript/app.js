@@ -71,15 +71,13 @@ document.onkeyup = function (event) {
             if (guessCounter === 0) {
                 alert("GAME OVER! YOU RAN OUT OF GUESSES!")
                 losses++
-                startKey.innerHTML = "<style>visibility: visible</style> Press any key to play again!"
-                gameStarted = false
+                endGame()
             }
             // # Win game if all letters guessed correctly
             else if (!answer.includes("_")) {
                 alert("CONGRATULATIONS! YOU WIN!")
                 wins++
-                startKey.innerHTML = "<style>visibility: visible</style> Press any key to play again!"
-                gameStarted = false
+                endGame()
             }
             showLosses.innerHTML = losses
             showWins.innerHTML = wins
@@ -107,4 +105,9 @@ var start = function () {
     guessCounter = 10
     showGuessCounter.innerHTML = guessCounter
     startKey.innerHTML = "<style>visiblity: hidden</style>"
+}
+
+var endGame = function () {
+    startKey.innerHTML = "<style>visibility: visible</style> Press any key to play again!"
+    gameStarted = false
 }
