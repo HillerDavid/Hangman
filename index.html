@@ -22,29 +22,30 @@
 1. Press any key to play again -->
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4" id="game-title">Unofficial Disney Word Guess Game!</h1>
-            <p class="lead" id="rules">Rules: A word is randomly picked from a list of Disney character names. To guess
-                a letter, simply press a key. Every correct guess replaces the _ space with the letter. You have 10 guesses
-                to fill all of the _ spaces correctly, otherwise, IT'S GAME OVER! </p>
-            <hr class="my-4">
-            <h2 class="display-3 start-text"><span id="start-key">Press any key to start!</span></h2>
-            <div>
+            <h1 class="display-4 game-text" id="game-title">Overwatch Hangman!</h1>
+            <p class="lead game-text" id="rules">In this game, an Overwatch character's name is randomly chosen to be hidden.
+                Guess letters using the keyboard to reveal more of the answer. Think carefully of your
+                choice. You only have 12 attempts to reveal the entire name or face defeat! </p>
+            <hr class="my-4 game-text" id="play-area-line">
+            <h2 class="display-3 game-text"><span id="start-key">Press any key to start!</span></h2>
+            <div class="display-3 game-text">
                 Guess the letters: <span id="display-words"></span>
             </div>
-            <div>
+            <div class="game-text">
                 Remaining Guesses: <span id="guess-counter">10</span>
             </div>
 
-            <div>
+            <div class="game-text">
                 Letters Guessed: <span id="letters"></span>
             </div>
-            <div>
+            <div class="game-text">
                 Wins: <span id="wins">0</span>
             </div>
-            <div>
+            <div class="game-text">
                 Losses: <span id="losses">0</span>
             </div>
         </div>
+        <img id="character" src="" alt="" class="img-thumbnail">
     </div>
 
 

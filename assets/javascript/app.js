@@ -1,5 +1,7 @@
 // - Create a list of words
-var wordArray = ["Pluto", "Mickey", "Minnie", "Goofy", "Donald", "Daisy"]
+var wordArray = ["Ana", "Bastion", "Brigitte", "Dva", "Genji", "Hanzo", "Junkrat", "Lucio", "McCree", "Mei", "Mercy",
+    "Orisa", "Pharah", "Reaper", "Reinhardt", "Roadhog", "Soldier", "Sombra", "Symmetra", "Torbjorn", "Tracer",
+    "Widowmaker", "Winston", "Hammond", "Zarya", "Zenyatta"]
 
 // - Remaining guesses from user until game over
 var guessCounter = 0
@@ -30,6 +32,7 @@ var showGuessCounter = document.getElementById("guess-counter")
 var showWins = document.getElementById("wins")
 var showLosses = document.getElementById("losses")
 var startKey = document.getElementById("start-key")
+var characterImage = document.getElementById("character")
 
 // # Start/Play the game!
 document.onkeyup = function (event) {
@@ -55,8 +58,6 @@ document.onkeyup = function (event) {
                 else {
                     lettersGuessed.push(userGuess.toUpperCase())
                     showLetters.innerHTML = lettersGuessed
-                    guessCounter--
-                    showGuessCounter.innerHTML = guessCounter
                 }
 
                 // - Checks if letter matches letters in word blanks and replaces it where it matches.
@@ -67,20 +68,23 @@ document.onkeyup = function (event) {
                     }
                 }
             }
-
+            guessCounter--
+            showGuessCounter.innerHTML = guessCounter
             // - Lose game if out of guesses
-            if (guessCounter === 0) {
-                alert("GAME OVER! YOU RAN OUT OF GUESSES!")
+            if (guessCounter === 0 && answer.includes("_")) {
+                alert("Defeated!")
                 losses++
-                endGame()
                 showLosses.innerHTML = losses
+                endGame()
             }
             // - Win game if all letters guessed correctly
             else if (!answer.includes("_")) {
-                alert("CONGRATULATIONS! YOU WIN!")
+                alert("Victory!")
+                characterImage.src = "assets/images/" + chosenWord + ".png"
+                characterImage.style.visibility = "visible"
                 wins++
-                endGame()
                 showWins.innerHTML = wins
+                endGame()
             }
         }
     }
@@ -92,6 +96,7 @@ var wordGenerator = function () {
     return word
 }
 
+// - Reset for new game
 var start = function () {
     gameStarted = true
     answer = []
@@ -102,11 +107,13 @@ var start = function () {
         answer[i] = "_"
     }
     showWord.innerHTML = answer.join(" ")
-    guessCounter = 10
+    guessCounter = 12
     showGuessCounter.innerHTML = guessCounter
+    characterImage.style.visibility = "hidden"
     startKey.innerHTML = "<style>visiblity: hidden</style>"
 }
 
+// - Toggle end of the game and instruct player how to play again
 var endGame = function () {
     startKey.innerHTML = "<style>visibility: visible</style> Press any key to play again!"
     gameStarted = false
