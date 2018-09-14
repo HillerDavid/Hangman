@@ -8,6 +8,7 @@ var guessCounter = 0
 
 // - Number of Wins and Losses
 var wins = 0
+
 var losses = 0
 
 // - All letters already guessed by user
