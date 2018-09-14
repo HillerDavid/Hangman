@@ -67,8 +67,9 @@ document.onkeyup = function (event) {
                         showWord.innerHTML = answer.join(" ")
                     }
                 }
+                guessCounter--
             }
-            guessCounter--
+
             showGuessCounter.innerHTML = guessCounter
             // - Lose game if out of guesses
             if (guessCounter === 0 && answer.includes("_")) {
